@@ -1,0 +1,28 @@
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.13.0.128:3306/openapi
+    username: root
+    password: wengyehao123
+
+# mybatis-plus配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true #mybatis-plus自动打开驼峰映射，mybatis则自动关闭
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1 #被删除
+      logic-not-delete-value: 0 #正常
+# 日志配置
+logging:
+  level:
+    com:
+      weng:
+        springsecuritydemo:
+          mapper: debug
+          service: debug
+          controller: debug

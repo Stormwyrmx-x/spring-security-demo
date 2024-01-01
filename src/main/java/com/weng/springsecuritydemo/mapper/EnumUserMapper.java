@@ -1,6 +1,5 @@
 package com.weng.springsecuritydemo.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.weng.springsecuritydemo.entity.EnumUser;
 import com.weng.springsecuritydemo.entity.TbUser;
@@ -13,9 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 * @Entity generator.domain.User
 */
 @Mapper
-public interface UserMapper extends BaseMapper<TbUser> {
+public interface EnumUserMapper extends BaseMapper<EnumUser> {
 
-    TbUser selectUserByUsername(String username);
 
 }
 

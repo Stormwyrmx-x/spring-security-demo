@@ -1,22 +1,20 @@
 package com.weng.springsecuritydemo.mapper;
 
-import com.weng.springsecuritydemo.entity.User;
+import com.weng.springsecuritydemo.entity.TbUser;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class UserMapperTest
+class TbUserMapperTest
 {
     @Resource
     private UserMapper userMapper;
     @Test
     void selectUserByUsername()
     {
-        User user = userMapper.selectUserByUsername("weng");
-        System.out.println(user);
+        TbUser tbUser = userMapper.selectUserByUsername("weng");
+        System.out.println(tbUser);
     }
 
 }

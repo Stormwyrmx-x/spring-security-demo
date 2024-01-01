@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.weng.springsecuritydemo.mapper.UserMapper">
-    <resultMap id="userResultMap" type="com.weng.springsecuritydemo.entity.User">
+    <resultMap id="userResultMap" type="com.weng.springsecuritydemo.entity.TbUser">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
@@ -19,12 +19,12 @@
 
     <!-- 根据用户名查询用户信息 -->
     <select id="selectUserByUsername" resultMap="userResultMap">
-        select user.*,
+        select tb_user.*,
                role.id as ums_role_id
         from role
-                 join user
+                 join tb_user
                  join user_role
-                      on user.id = user_role.user_id and role.id = user_role.role_id
+                      on tb_user.id = user_role.user_id and role.id = user_role.role_id
         where username = #{username}
     </select>
 </mapper>

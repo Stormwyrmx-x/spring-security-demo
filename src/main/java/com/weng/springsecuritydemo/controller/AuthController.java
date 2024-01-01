@@ -1,16 +1,16 @@
 package com.weng.springsecuritydemo.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.weng.springsecuritydemo.dto.LoginParam;
+import com.weng.springsecuritydemo.dto.LoginRequest;
+import com.weng.springsecuritydemo.dto.RegisterRequest;
+import com.weng.springsecuritydemo.entity.EnumUser;
 import com.weng.springsecuritydemo.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -19,10 +19,34 @@ public class AuthController
 {
     private final UserService userService;
     @PostMapping("/login")
-    public String login(@RequestBody @Validated LoginParam loginParam)
+    public String login(@RequestBody @Validated LoginRequest loginRequest)
     {
-//        MappingJackson2HttpMessageConverter
-        String token = userService.login(loginParam);
+        String token = userService.login(loginRequest);
         return token;
+    }
+
+    @PostMapping("/register")
+    public String register(@RequestBody @Validated RegisterRequest registerRequest)
+    {
+        String token=userService.register(registerRequest);
+        return token;
+    }
+
+
+
+    @GetMapping("/user")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String testUser(@AuthenticationPrincipal UserDetails enumUser)
+    {
+        System.out.println(enumUser);
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+        return "testUser";
+    }
+    @GetMapping("/interface")
+    @PreAuthorize("hasAuthority('USER')")
+    public String testInterface()
+    {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+        return "testInterface";
     }
 }

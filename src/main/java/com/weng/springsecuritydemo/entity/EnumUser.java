@@ -1,11 +1,9 @@
 package com.weng.springsecuritydemo.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import jakarta.validation.constraints.NotBlank;
+import com.baomidou.mybatisplus.annotation.*;
+import com.weng.springsecuritydemo.common.RoleEnum;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,36 +12,39 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * 
- * @TableName user
- */
-@TableName(value ="user")
+@TableName(value ="enum_user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable, UserDetails
+@Builder
+public class EnumUser implements Serializable, UserDetails
 {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
-     * 
+     *
      */
 //    @NotBlank
     private String username;
 
     /**
-     * 
+     *
      */
 //    @NotBlank
     private String password;
+
+
+
+    private String role;
 
     /**
      * 用户状态(0-正常启用，1-禁用)
@@ -65,10 +66,6 @@ public class User implements Serializable, UserDetails
      */
     private Integer deleted;
 
-    private Set<Long> roleIds=new HashSet<>();
-
-    //查询出来的permissions可能为null，所以要初始化
-    private Set<String> permissions=new HashSet<>();
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -76,11 +73,7 @@ public class User implements Serializable, UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        if (!permissions.isEmpty())
-        {
-            return permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
-        }
-        return null;
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override

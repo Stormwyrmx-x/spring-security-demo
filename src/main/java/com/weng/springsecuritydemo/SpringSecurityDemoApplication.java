@@ -1,5 +1,6 @@
 package com.weng.springsecuritydemo;
 
+import io.jsonwebtoken.Jwts;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

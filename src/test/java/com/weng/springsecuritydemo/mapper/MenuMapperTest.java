@@ -5,7 +5,9 @@ import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,10 +20,10 @@ class MenuMapperTest
     @Test
     public void testSelectMenuByRoleIds()
     {
-        Set<Long>roleIds=new HashSet<>();
+        List<Long> roleIds=new ArrayList<>();
         roleIds.add(1L);
         roleIds.add(2L);
-        Set<Menu> menus = menuMapper.selectMenuByRoleIds(roleIds);
+        List<Menu> menus = menuMapper.selectMenuByRoleIds(roleIds);
         System.out.println(menus);
     }
 }

@@ -1,15 +1,9 @@
 package com.weng.springsecuritydemo;
 
-import com.weng.springsecuritydemo.dto.LoginParam;
-import com.weng.springsecuritydemo.entity.User;
 import jakarta.annotation.Resource;
-import jakarta.validation.constraints.AssertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.Arrays;
 
 @SpringBootTest
 class SpringSecurityDemoApplicationTests

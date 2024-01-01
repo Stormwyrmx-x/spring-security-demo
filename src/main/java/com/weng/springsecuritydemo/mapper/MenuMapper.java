@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.weng.springsecuritydemo.entity.Menu;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Set;
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
 
-    Set<Menu> selectMenuByRoleIds(Set<Long> roleIds);
+    List<Menu> selectMenuByRoleIds(List<Long> roleIds);
 }
 
 

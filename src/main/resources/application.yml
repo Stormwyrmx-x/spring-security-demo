@@ -2,7 +2,7 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.13.0.128:3306/openapi
+    url: jdbc:mysql://10.13.0.128:3306/spring_security
     username: root
     password: wengyehao123
 
@@ -26,3 +26,12 @@ logging:
           mapper: debug
           service: debug
           controller: debug
+
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970 #secert不能少于256bit，也就是32位字符
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days

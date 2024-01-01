@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @TableName(value ="role")
 @Data
-public class Role implements Serializable {
+public class   Role implements Serializable {
     /**
      * 
      */

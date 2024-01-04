@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.weng.springsecuritydemo.entity.EnumUser;
 import com.weng.springsecuritydemo.filter.JwtAuthenticationFilter;
 import com.weng.springsecuritydemo.mapper.EnumUserMapper;
-import io.jsonwebtoken.Jwt;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -67,12 +67,10 @@ public class SecurityConfig
     {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests.requestMatchers("/auth/login","auth/register").permitAll()
+                authorizeRequests.requestMatchers("/auth/login","auth/register","auth/user").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManagement -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                //默认是IF_REQUIRED,即如果需要就创建一个session。
-                //这里改为STATELESS，不创建session。因为每次请求携带的jwt信息包含了用户信息
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))//默认是IF_REQUIRED,即如果需要就创建一个session。//这里改为STATELESS，不创建session。因为每次请求携带的jwt信息包含了用户信息
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

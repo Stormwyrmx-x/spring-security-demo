@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class EnumUser implements Serializable, UserDetails
     private Integer deleted;
 
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

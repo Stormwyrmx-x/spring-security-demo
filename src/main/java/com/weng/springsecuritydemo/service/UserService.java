@@ -5,6 +5,7 @@ import com.weng.springsecuritydemo.dto.LoginRequest;
 import com.weng.springsecuritydemo.dto.RegisterRequest;
 import com.weng.springsecuritydemo.entity.EnumUser;
 import com.weng.springsecuritydemo.entity.TbUser;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -15,7 +16,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 public interface UserService extends IService<TbUser>
 {
 
-    String login(LoginRequest loginRequest);
+//    String login(LoginRequest loginRequest);
+
+    String login(LoginRequest loginRequest, HttpServletRequest request);
 
     String register(RegisterRequest registerRequest);
 

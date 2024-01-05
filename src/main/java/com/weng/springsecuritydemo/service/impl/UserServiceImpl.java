@@ -8,16 +8,19 @@ import com.weng.springsecuritydemo.entity.TbUser;
 import com.weng.springsecuritydemo.mapper.EnumUserMapper;
 import com.weng.springsecuritydemo.mapper.UserMapper;
 import com.weng.springsecuritydemo.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 /**
 * @author weng
@@ -40,12 +43,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser>
 
 
     @Override
-    public String login(LoginRequest loginRequest)
+    public String login(LoginRequest loginRequest, HttpServletRequest request)
     {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                 = new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password());
         Authentication authenticationResponse = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         EnumUser enumUser = (EnumUser) authenticationResponse.getPrincipal();
+        //Update SecurityContext with authentication information (authenticationResponse)
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authenticationResponse);
+        //Set updated securityContext into session of user
+        HttpSession session = request.getSession(true);
+        session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, securityContext);
 //        String token = jwtUtil.generateToken(enumUser);
 //        return token;
         return "success";

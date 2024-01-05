@@ -4,6 +4,7 @@ import com.weng.springsecuritydemo.dto.LoginRequest;
 import com.weng.springsecuritydemo.dto.RegisterRequest;
 import com.weng.springsecuritydemo.entity.EnumUser;
 import com.weng.springsecuritydemo.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,9 +20,9 @@ public class AuthController
 {
     private final UserService userService;
     @PostMapping("/login")
-    public String login(@RequestBody @Validated LoginRequest loginRequest)
+    public String login(@RequestBody @Validated LoginRequest loginRequest, HttpServletRequest request)
     {
-        String token = userService.login(loginRequest);
+        String token = userService.login(loginRequest,request);
         return token;
     }
 

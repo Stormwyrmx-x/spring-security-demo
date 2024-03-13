@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
+//在默认配置下，Spring MVC并不会自动验证简单类型的方法参数（如`String`、`int`等）
+//若要让这些约束注解生效，需要在控制器方法参数前使用`@Valid`或`@Validated`注解来触发验证
 public class HelloController
 {
 //     @GetMapping("/hello")

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: 10.13.0.128    Database: spring_security
+-- Host: 192.168.203.132    Database: spring_security
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -32,9 +32,9 @@ DROP TABLE IF EXISTS `enum_user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `enum_user` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户角色',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户角色',
   `status` int NOT NULL DEFAULT '0' COMMENT '用户状态(0-正常，1-禁用)',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -49,7 +49,7 @@ CREATE TABLE `enum_user` (
 
 LOCK TABLES `enum_user` WRITE;
 /*!40000 ALTER TABLE `enum_user` DISABLE KEYS */;
-INSERT INTO `enum_user` VALUES (1,'weng','$2a$10$d996TZbIvTqKHi63jzfH3Od83/QGtiD0Wz0.6UZR0eVpjOrLmCVCW','ADMIN',0,'2023-12-29 14:06:04','2023-12-29 14:06:04',0),(2,'hu','$2a$10$Irk4Ce13xSTWkIVUZ7lqre5hwC22M6kFPNaST1UXRWIg.5l6bUl.W','USER',0,'2023-12-29 15:22:20','2023-12-29 15:22:20',0),(3,'hu','$2a$10$1Np6W0XYDr1gHY2TABINyOiEFeRhkNi90Wurul9S/FVlmgv/UC3Pu','USER',0,'2023-12-29 15:25:02','2023-12-29 15:25:02',0),(4,'hu','$2a$10$91JJ4pcdOKaGXImREZK//.fB7t1TprKmddvHC3oFGnTJeEIBRTay.','USER',0,'2023-12-29 15:25:38','2023-12-29 15:25:38',0);
+INSERT INTO `enum_user` VALUES (1,'weng','$2a$10$d996TZbIvTqKHi63jzfH3Od83/QGtiD0Wz0.6UZR0eVpjOrLmCVCW','ADMIN',0,'2023-12-29 14:06:04','2023-12-29 14:06:04',0),(2,'hu','$2a$10$Irk4Ce13xSTWkIVUZ7lqre5hwC22M6kFPNaST1UXRWIg.5l6bUl.W','USER',0,'2023-12-29 15:22:20','2023-12-29 15:22:20',0);
 /*!40000 ALTER TABLE `enum_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +178,7 @@ CREATE TABLE `user_role` (
   `user_id` bigint NOT NULL,
   `role_id` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,1,1),(3,1,2);
+INSERT INTO `user_role` VALUES (1,1,1),(4,1,2);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -200,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-01 15:43:11
+-- Dump completed on 2024-02-28 12:28:38
